@@ -77,23 +77,36 @@ console.log(UniqueBrandNames + "\n" + "Number of unique brand names : " + Unique
 // 1. Create a function to sort the marketplace products by price
 // 2. Create a variable and assign it the list of products by price from lowest to highest
 // 3. Log the variable
-const Brands = []
-for()
-function sort_by_price(number) {
-  return number * number;
-}
 
 console.log("Products sorted by price : ");
-
+const marketplaceSortPrice = marketplace.sort(function(a, b){
+  return a.price - b.price;
+});
+console.log(marketplaceSortPrice)
 
 // 🎯 TODO 5: Sort by date
 // 1. Create a function to sort the marketplace objects by products date
 // 2. Create a variable and assign it the list of products by date from recent to old
 // 3. Log the variable
 
+console.log("Products sorted by date : ");
+const marketplaceSortDate = marketplace.sort(function(a,b){
+  return new Date(a.released) - new Date(b.released);
+});
+console.log(marketplaceSortDate)
+
 // 🎯 TODO 6: Filter a specific price range
 // 1. Filter the list of products between 50€ and 100€
 // 2. Log the list
+
+console.log("Filtered products with price within range : 50€-100€")
+
+function iswithinrange50100(product) {
+  return product.price >= 50 && product.price <= 100;
+}
+
+const marketplace50100 = marketplace.filter(iswithinrange50100);
+console.log(marketplace50100)
 
 // 🎯 TODO 7: Average price
 // 1. Determine the average price of the marketplace
