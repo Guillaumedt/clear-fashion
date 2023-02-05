@@ -112,6 +112,13 @@ console.log(marketplace50100)
 // 1. Determine the average price of the marketplace
 // 2. Log the average
 
+console.log("Average price of the product of the marketplace : ")
+function average(p,c,i,a){return p + (c.price/a.length)};
+
+// const marketplacepriceavg = marketplace.reduce(average, 0).toFixed(2);
+const marketplacepriceavg = Math.round(marketplace.reduce(average, 0)*100)/100;
+
+console.log(marketplacepriceavg);
 /**
  * 🏎
  * We are almost done with the `marketplace` variable
@@ -134,6 +141,13 @@ console.log(marketplace50100)
 //
 // 2. Log the variable
 // 3. Log the number of products by brands
+
+const brands = {
+  'ISELLCLOTHES': [{'name' : 'shoes', 'price' : 90, 'released': '2022-12-26'}, {'name' : 'pants', 'price' : 35, 'released': '2023-01-02'}, {'name' : 'hat', 'price' : 60, 'released': '2022-08-12'}],
+  'ISELLFOOD': [{'name' : 'burger', 'price' : 14, 'released': '2022-19-21'}, {'name' : 'pasta bolognese', 'price' : 13, 'released': '2022-19-21'}, {'name' : 'beef & fries', 'price' : 18, 'released': '2022-19-21'}],
+  'ISELLELECTRONICS': [{'name' : 'computer', 'price' : 1200, 'released': '2022-10-26'}, {'name' : 'mouse', 'price' : 70, 'released': '2023-02-01'}, {'name' : 'phone', 'price' : 400, 'released': '2022-05-28'}]
+};
+
 
 // 🎯 TODO 9: Sort by price for each brand
 // 1. For each brand, sort the products by price, from highest to lowest
