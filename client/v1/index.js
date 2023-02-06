@@ -147,11 +147,25 @@ const brands = {
   'ISELLFOOD': [{'name' : 'burger', 'price' : 14, 'released': '2022-19-21'}, {'name' : 'pasta bolognese', 'price' : 13, 'released': '2022-19-21'}, {'name' : 'beef & fries', 'price' : 18, 'released': '2022-19-21'}],
   'ISELLELECTRONICS': [{'name' : 'computer', 'price' : 1200, 'released': '2022-10-26'}, {'name' : 'mouse', 'price' : 70, 'released': '2023-02-01'}, {'name' : 'phone', 'price' : 400, 'released': '2022-05-28'}]
 };
+console.log(brands)
+console.log(brands.type)
+for(i in range(0,brands.length)){
+  console.log(i.key + " : ")
+}
 
 
 // 🎯 TODO 9: Sort by price for each brand
 // 1. For each brand, sort the products by price, from highest to lowest
 // 2. Log the sort
+
+console.log("Products sorted by price : ");
+for (brand in brands){
+  brand = brand.sort(function(a, b){
+    return a.price - b.price;
+  });
+}
+
+console.log(brands)
 
 // 🎯 TODO 10: Sort by date for each brand
 // 1. For each brand, sort the products by date, from old to recent
