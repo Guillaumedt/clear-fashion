@@ -77,7 +77,7 @@ const renderProducts = products => {
         <a href="${product.link}">${product.name}</a>
         <span>${product.price}</span>
       </div>
-    `;
+      `;
     })
     .join('');
 
@@ -138,3 +138,71 @@ document.addEventListener('DOMContentLoaded', async () => {
   setCurrentProducts(products);
   render(currentProducts, currentPagination);
 });
+
+/**
+ * Select the number of the page to display
+ */
+selectPage.addEventListener('change', async (event) => {
+  const products = await fetchProducts(parseInt(event.target.value), currentPagination.pageSize);
+
+  setCurrentProducts(products);
+  render(currentProducts, currentPagination);
+});
+
+
+
+/**
+ * Filter products by brand name
+ */
+
+// instantiate the selectors
+const selectBrand = document.querySelector('#brand-select');
+
+/**
+ * Fetch brands from api
+ *  */
+const fetchBrands = async () => {
+  try {
+    const response = await fetch('https://clear-fashion-api.vercel.app/brands');
+    const body = await response.json();
+
+    if (body.success !== true) {
+      console.error(body);
+      return [];
+    }
+
+    return body.data;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
+
+
+function renderBrands(brands) {
+  brands.unshift("No brand selected"); // adds the option "no brand selected"
+  const options = Array.from(
+    brands,
+    value => `<option value="${value}">${value}</option>`).join('');
+
+  selectBrand.innerHTML = options;
+};
+
+// ajoute les options pour la selection des marques
+document.addEventListener('DOMContentLoaded', async () => {
+  const brands = await fetchBrands();
+  console.table(brands.result);
+
+  renderBrands(brands.result);
+});
+
+// boutons
+selectBrand.addEventListener('change', async (event) => {
+  const products = await fetchProducts(1,1200); // parseInt(currentPagination.currentPage), currentPagination.pageSize
+  products.result = products.result.filter(product => product.brand==event.target.value);
+  setCurrentProducts(products);
+  render(currentProducts, currentPagination);
+});
+
+
+
