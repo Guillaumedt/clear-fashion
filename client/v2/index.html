@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href="style.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>👕 Clear Fahion | Environmentally & human-friendly clothes</title>
   </head>
@@ -20,8 +21,18 @@
         <select name="page" id="page-select"> </select>
       </div>
       <div id="filters">
-        <span>By reasonable price</span>
-        <span>By recently released</span>
+        <label for="reasonable-select">By reasonable price:</label>
+        <select name="reasonable" id="reasonable-select">
+          <option value="No">No</option>
+          <option value="Yes">Yes</option>
+        </select>
+
+        <label for="recent-select">By recently released:</label>
+        <select name="recent" id="recent-select">
+          <option value="No">No</option>
+          <option value="Yes">Yes</option>
+        </select>
+
         <div id="brand">
           <label for="brand-select">By brands:</label>
           <select name="brand" id="brand-select"> </select>
@@ -34,6 +45,13 @@
           <option value="price-desc">Expensive</option>
           <option value="date-asc">Recently released</option>
           <option value="date-desc">Anciently released</option>
+        </select>
+      </div>
+      <div id="favorites">
+        <label for="favorites-select">Favorites:</label>
+        <select name="favorites" id="favorites-select">
+          <option value="No">No</option>
+          <option value="Yes">Yes</option>
         </select>
       </div>
     </section>
@@ -49,23 +67,23 @@
       </div>
       <div>
         <span>Number of new products</span>
-        <span>0</span>
+        <span id="nbNewProducts">0</span>
       </div>
       <div>
         <span>p50 price value</span>
-        <span>0</span>
+        <span id="p50pricevalue">0</span>
       </div>
       <div>
         <span>p90 price value</span>
-        <span>0</span>
+        <span id="p90pricevalue">0</span>
       </div>
       <div>
         <span>p95 price value</span>
-        <span>0</span>
+        <span id="p95pricevalue">0</span>
       </div>
       <div>
         <span>Last released date</span>
-        <span>2020-01-01</span>
+        <span id="lastreleasevalue">0</span>
       </div>
     </section>
     <section id="products"></section>
