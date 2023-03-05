@@ -9,33 +9,36 @@ const cheerio = require('cheerio');
 const parse = data => {
   const $ = cheerio.load(data);
 
-  return $('.productList-container .productList')
+  return $('.products-list.row .products-list__block')
     .map((i, element) => {
       const name = $(element)
-        .find('.productList-title')
+        .find('.product-miniature__title')
         .text()
         .trim()
         .replace(/\s/g, ' ');
+
       const price = parseInt(
         $(element)
-          .find('.productList-price')
+          .find('.product-miniature__pricing')
           .text()
       );
       
-      // get the link of the product
+      //We get the link of the product
       const link = $(element)
-        .find('.productList-link')
+        .find('.product-miniature__thumb-link')
         .attr('href');
 
-      // get the 1rst image of the product
-      const image = $(element)
-        .find('.js-lazy')
-        .attr('data-src');
-
-      // get the date of the scrapping
+      //Get scraping date
       const date = new Date();
-      const brand = "Dedicated";
-      return {name, link, price, image, date, brand}
+
+      //Get the image of the product
+      const image = $(element)
+        .find('.w-100')
+        .attr('data-src');
+      
+      const brand = 'Montlimart'
+
+      return {name, price, link, image, date, brand};
     })
     .get();
 };
