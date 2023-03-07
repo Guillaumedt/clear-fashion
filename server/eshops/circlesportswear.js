@@ -18,12 +18,12 @@ const parse = data => {
           .trim()
           .replace(/\s/g, ' ');
         var price = $(element)
+            .find('.price__sale')
             .find('.money')
             .text();
-        console.log(price);
+            
         // we get rid of the first character of the price
         price = stripFirstChar(price);
-        console.log(price);
         // we convert price to an int
         price = parseInt(price);
         

@@ -27,6 +27,7 @@ const selectShow = document.querySelector('#show-select');
 const selectPage = document.querySelector('#page-select');
 const sectionProducts = document.querySelector('#products');
 
+var br; // brand selected
 /**
  * Set global value
  * @param {Array} result - products to display
@@ -43,10 +44,10 @@ const setCurrentProducts = ({result, meta}) => {
  * @param  {Number}  [size=12] - size of the page
  * @return {Object}
  */
-const fetchProducts = async (page = 1, size = 12) => {
+const fetchProducts = async (page = 1, size = 12, brand = "") => {
   try {
     const response = await fetch(
-      `https://clear-fashion-api.vercel.app?page=${page}&size=${size}`
+      `https://clear-fashion-api.vercel.app?page=${page}&size=${size}&brand=${brand}`
     );
     const body = await response.json();
 
@@ -139,7 +140,7 @@ const render = (products, pagination) => {
  * Select the number of products to display
  */
 selectShow.addEventListener('change', async (event) => {
-  const products = await fetchProducts(currentPagination.currentPage, parseInt(event.target.value));
+  const products = await fetchProducts(currentPagination.currentPage, parseInt(event.target.value), br);
   setCurrentProducts(products);
   render(currentProducts, currentPagination);
 });
@@ -150,7 +151,7 @@ selectShow.addEventListener('change', async (event) => {
  * Select the number of the page to display
  */
 selectPage.addEventListener('change', async (event) => {
-  const products = await fetchProducts(parseInt(event.target.value), currentPagination.pageSize);
+  const products = await fetchProducts(parseInt(event.target.value), selectShow.value, br);
 
   
   //fav_dictionnary(products.result);
@@ -199,6 +200,7 @@ const fetchBrands = async () => {
 
 
 function renderBrands(brands) {
+  brands.unshift("unselected"); // adds the option "unselected"
   const options = Array.from(
     brands,
     value => `<option value="${value}">${value}</option>`).join('');
@@ -208,16 +210,13 @@ function renderBrands(brands) {
 };
 
 
-
 // toggles
 selectBrand.addEventListener('change', async (event) => {
-  //if(event.target.value !== "unselected"){
-  const products = await fetchProducts(1,500); // parseInt(currentPagination.currentPage), currentPagination.pageSize // 222 products
-  products.result = products.result.filter(product => product.brand==event.target.value);
-  //}
-  //else{
-  //  const products = await fetchProducts(parseInt(currentPagination.currentPage), currentPagination.pageSize)
-  //}
+  br = event.target.value;
+  if(br == "unselected"){
+    br = "";
+  }
+  const products = await fetchProducts(parseInt(currentPagination.currentPage), currentPagination.pageSize, br);
   setCurrentProducts(products);
   render(currentProducts, currentPagination);
 });
@@ -229,7 +228,7 @@ selectBrand.addEventListener('change', async (event) => {
  */
 
 // instantiate the selectors
-const selectRencent = document.querySelector('#recent-select');
+const selectRecent = document.querySelector('#recent-select');
 const selectReasonable = document.querySelector('#reasonable-select');
 const selectSort = document.querySelector('#sort-select');
 const selectFavorites = document.querySelector('#favorites-select');
@@ -246,11 +245,12 @@ const spanlastrelease = document.querySelector('#lastreleasevalue'); // FEATURE 
 // FEATURE 3
 
 // Recent products (less than 1 month)
-selectRencent.addEventListener('change', async (event) => {
+selectRecent.addEventListener('change', async (event) => {
   const products = await fetchProducts(1,500); // parseInt(currentPagination.currentPage), currentPagination.pageSize // 222 products
   if(event.target.value == "Yes"){
-    products.result = products.result.filter(product => ((new Date()- new Date (product.released)) / (1000 * 3600 * 24 )) <30);
+    products.result = products.result.filter(product => ((new Date()- new Date(product.released)) / (1000 * 3600 * 24 )) <100); // change la valeur régulièrement pour avoir des porduits.
   }
+
   setCurrentProducts(products);
   render(currentProducts, currentPagination);
 });
@@ -368,7 +368,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   spanlastrelease.innerHTML = last_release_date;
 
   //console.table(brands.result);
-  brands.result.unshift("unselected"); // adds the option "unselected"
+  //brands.result.unshift("unselected"); // adds the option "unselected"
   
   setCurrentProducts(products);
   setCurrentBrands(brands);
