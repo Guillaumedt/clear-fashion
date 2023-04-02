@@ -10,11 +10,12 @@ var client;
 var db;
 var collection;
 var result;
-const fs = require('fs');
+//const fs = require('fs');
 
 async function connectMongoDb(){
-    var key = fs.readFileSync('key.json');
-    key = JSON.parse(key);
+    //var key = fs.readFileSync('key.json');
+    key = { "MONGODB_URI" : "mongodb+srv://guillaumedetrentinian:3Ev1FuDlzNUdMasm@cluster0.jjwndfq.mongodb.net/test"}
+    //key = JSON.parse(key);
     MONGODB_URI = key.MONGODB_URI;
     console.log('Connecting to MongoDB ...');
     client = await MongoClient.connect(MONGODB_URI, {'useNewUrlParser': true});
