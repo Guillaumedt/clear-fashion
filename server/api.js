@@ -70,6 +70,10 @@ app.use(helmet());
 
 app.options('*', cors());
 
+app.get('/', async (request, response) => {
+  response.send({'ack': true});
+});
+
 app.get('/products', async (request, response) => {
   response.json(await fetchproducts()); 
 });
