@@ -82,8 +82,14 @@ app.get('/products/search', async (request, response) => {
   if(limit == undefined){ // === ?
       limit = 12;
   }
-  const products = await fetchproducts(brand = brand, lessthan = price, sortedbyprice = true, sortedbydate = false, onlynewproducts = false, id = undefined);
-  response.json(products.slice(0,limit));
+  var products = await fetchproducts(brand = brand, lessthan = price, sortedbyprice = true, sortedbydate = false, onlynewproducts = false, id = undefined);
+  products = products.slice(0,limit);
+  const output = {
+    limit: limit,
+    total: products.length,
+    results: products
+  };
+  response.json(output);
   //example http://localhost:8092/products/search?limit=10&brand=Dedicated&price=50
 });
 
